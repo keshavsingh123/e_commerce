@@ -1,0 +1,37 @@
+{
+  "name": "e_commerce",
+  "version": "1.0.0",
+  "description": "this is ecomeerce app",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keshavsingh123/E_commerce.git"
+  },
+  "keywords": [
+    "ecommerve",
+    "react",
+    "node",
+    "nosql"
+  ],
+  "author": "Keshav Singh Chauhan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/keshavsingh123/E_commerce/issues"
+  },
+  "homepage": "https://github.com/keshavsingh123/E_commerce#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "colors": "^1.4.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.9"
+  }
+}
