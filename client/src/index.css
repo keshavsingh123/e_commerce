@@ -7,6 +7,11 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.main_class {
+    background: "linear-gradient(#e66465, #9198e5)"
+
+}
+
 /* Navbar */
 .navbar {
     font-family: "Poppins", serif;
@@ -41,8 +46,8 @@
 
 .footer {
     color: #fff;
-    padding: 2em;
-    background: -webkit-linear-gradient(#480f46eb, #f71a1ac5);
+    padding: 1.7em;
+    background: -webkit-linear-gradient(#131013eb, #352626c5);
 
 }
 
@@ -63,12 +68,56 @@
     height: 400px;
 }
 
-.register {
+.register,
+.login {
     display: flex;
-    justify-content: center;
-    flex-direction: column;
     height: 70vh;
     align-items: center;
+    justify-content: center;
+
+}
+
+.login>form>.form-group,
+.register>form>.form-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    /* Space between label and input */
+}
+
+.login>.form,
+.register>.form {
+
+    background-color: #fff;
+    border-radius: 0.3em;
+
+}
+
+.register>form>h4,
+.login>form>h4 {
+    border-bottom: 1px solid black;
+    padding: 8px;
+}
+
+.register>.form,
+.login>.form {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    padding: 20px;
+}
+
+.register>.form>.form-group>label,
+.login>.form>.form-group>label {
+    width: 100px;
+    /* Adjust the width as needed */
+}
+
+.register>form>.form-group>input,
+.login>form>.form-group>input {
+    box-shadow: rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px;
+    border-bottom: 1.5px solid #000;
+    flex: 1
 }
 
 /* font-family: "Poppins", serif; */

@@ -7,13 +7,13 @@ export const registerController = async (req, res) => {
   try {
     const { name, email, password, phone, address } = req.body;
     if (!name || !email || !password || !phone || !address) {
-      res.send({ error: "please provide all fields" });
+      res.send({ success: false, message: "please provide all fields" });
     }
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
       return res.send({
         success: false,
-        message: "already register pls login",
+        message: "already registered pls login",
       });
     }
     const hashedPassword = await hashPassword(password);
@@ -42,7 +42,9 @@ export const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      res.status(404).send({ message: "please provide email and password" });
+      res
+        .status(404)
+        .send({ success: false, message: "please provide email and password" });
     }
     const user = await userModel.findOne({ email });
     if (!user) {

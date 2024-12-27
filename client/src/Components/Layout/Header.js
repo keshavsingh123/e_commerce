@@ -1,7 +1,24 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 // import { FaShoppingBag } from "react-icons/fa";
+import { useAuth } from "../../Context/Auth";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
 const Header = () => {
+  const [auth, setAuth] = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setAuth({
+      ...auth,
+      user: null,
+      token: "",
+    });
+    localStorage.removeItem("auth");
+    navigate("/login");
+    toast.success("Logout Successfully");
+  };
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-warning">
@@ -32,16 +49,30 @@ const Header = () => {
                   Category
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink to="/register" className="nav-link">
-                  Register
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="/login" className="nav-link">
-                  Login
-                </NavLink>
-              </li>
+              {!auth.user ? (
+                <>
+                  <li className="nav-item">
+                    <NavLink to="/register" className="nav-link">
+                      Register
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink to="/login" className="nav-link">
+                      Login
+                    </NavLink>
+                  </li>
+                </>
+              ) : (
+                <li className="nav-item">
+                  <NavLink
+                    to="/login"
+                    onClick={handleLogout}
+                    className="nav-link"
+                  >
+                    Logout
+                  </NavLink>
+                </li>
+              )}
               <li className="nav-item">
                 <NavLink to="/cart" className="nav-link">
                   Cart

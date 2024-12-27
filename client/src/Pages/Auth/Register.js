@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { toast } from "react-toastify";
-
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import Layout from "../../Components/Layout/Layout";
 const Register = () => {
   const [name, setName] = useState("");
@@ -8,17 +9,34 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(name, email, password, phone, address);
-    toast.success("registered");
+
+    try {
+      const res = await axios.post("api/v1/auth/register", {
+        name,
+        email,
+        password,
+        phone,
+        address,
+      });
+      if (res.data.success) {
+        toast.success(res.data.message);
+        navigate("/login");
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <Layout title={"register KS-COM"}>
       <div className="register">
-        <h1 className="text-center">Register</h1>
-        <form onSubmit={handleSubmit}>
+        <form className="form" onSubmit={handleSubmit}>
+          <h4 className="text-center ">Register</h4>
+
           <div className="form-group">
             <label htmlFor="exampleInputName">Name</label>
             <input
@@ -32,7 +50,7 @@ const Register = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="exampleInputEmail1">Email address</label>
+            <label htmlFor="exampleInputEmail1">Email</label>
             <input
               type="email"
               className="form-control"
@@ -79,9 +97,11 @@ const Register = () => {
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary mt-2 text-center">
-            Submit
-          </button>
+          <div className="d-grid gap-2">
+            <button className="btn btn-primary" type="submit">
+              Register
+            </button>
+          </div>
         </form>
       </div>
     </Layout>

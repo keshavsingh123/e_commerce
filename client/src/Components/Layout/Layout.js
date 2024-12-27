@@ -2,12 +2,12 @@ import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Helmet } from "react-helmet";
-import { ToastContainer } from "react-toastify";
+import { Toaster } from "react-hot-toast";
 
 const Layout = ({ children, title, description, keywords, author }) => {
   return (
     <>
-      <div style={{ backgroundColor: "#f2cac3" }}>
+      <div>
         <Helmet>
           <meta charSet="UTF-8" />
           <meta name="description" content={description} />
@@ -16,9 +16,14 @@ const Layout = ({ children, title, description, keywords, author }) => {
           <title>{title}</title>
         </Helmet>
         <Header />
-        <main style={{ minHeight: "70vh" }}>
-          <ToastContainer />
+        <main
+          style={{
+            minHeight: "70vh",
+            background: "linear-gradient(#e66465, #9198e5)",
+          }}
+        >
           {children}
+          <Toaster />
         </main>
         <Footer />
       </div>
