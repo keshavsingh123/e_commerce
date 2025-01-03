@@ -1,12 +1,13 @@
 import jwt from "jsonwebtoken";
-import { userModel } from "../Models/user.model";
+import { userModel } from "../Models/user.model.js";
 
 export const requireSignIn = async (req, res, next) => {
   try {
-    const decode = jwt.verify(
-      req.headers.authorization,
-      process.env.JSON_SECRET
-    );
+    const token = req.headers.authorization;
+    if (!token) {
+      return res.status(401).send({ success: false, message: "Token missing" });
+    }
+    const decode = jwt.verify(token, process.env.JSON_SECRET);
     req.user = decode;
     next();
   } catch (err) {
@@ -21,8 +22,8 @@ export const requireSignIn = async (req, res, next) => {
 //admin access
 export const isAdmin = async (req, res, next) => {
   try {
-    const user = await userModel.findById(req.user._i);
-    if (user.role != 1) {
+    const user = await userModel.findById(req.user._id);
+    if (user.role !== 1) {
       return res.status(500).send({
         success: false,
         message: "unauthorized access",

@@ -68,10 +68,10 @@
     height: 400px;
 }
 
+/* Register and Login */
 .register,
 .login {
     display: flex;
-    height: 70vh;
     align-items: center;
     justify-content: center;
 
@@ -105,6 +105,8 @@
 .login>.form {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     padding: 20px;
+    width: 500px;
+    margin: 10px;
 }
 
 .register>.form>.form-group>label,
@@ -119,6 +121,28 @@
     border-bottom: 1.5px solid #000;
     flex: 1
 }
+
+/* Dropdown styles */
+.dropdown-menu {
+    position: absolute;
+    background-color: #fefbba;
+    border-radius: 5px;
+    list-style: none;
+    padding: 0;
+}
+
+.dropdown-item:hover {
+    background-color: #ffbbae;
+    color: #fff;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+    background-color: #77a0ec;
+    color: #000;
+}
+
+
 
 /* font-family: "Poppins", serif; */
 /* font-family: "Playfair Display", serif; */

@@ -9,6 +9,8 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [answer, setAnswer] = useState("");
+
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,6 +22,7 @@ const Register = () => {
         password,
         phone,
         address,
+        answer,
       });
       if (res.data.success) {
         toast.success(res.data.message);
@@ -69,7 +72,7 @@ const Register = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               id="exampleInputPassword1"
-              placeholder="Password"
+              placeholder="Enter Password"
               required
             />
           </div>
@@ -81,7 +84,7 @@ const Register = () => {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               id="exampleInputPhone"
-              placeholder="Phone"
+              placeholder="Enter Phone"
               required
             />
           </div>
@@ -93,12 +96,33 @@ const Register = () => {
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               id="exampleInputAddress"
-              placeholder="Address"
+              placeholder="Enter Address"
               required
             />
           </div>
+          <div className="form-group">
+            <label htmlFor="exampleInputAddress">Sport</label>
+            <input
+              type="text"
+              className="form-control"
+              value={answer}
+              onChange={(e) => setAnswer(e.target.value)}
+              id="exampleInputAnswer"
+              placeholder="Enter your favourite sport name"
+              required
+            />
+          </div>
+          <div className="d-grid gap-2 mb-2">
+            <button
+              className="btn btn-warning"
+              type="submit"
+              onClick={() => navigate("/forget-password")}
+            >
+              Forget Password
+            </button>
+          </div>
           <div className="d-grid gap-2">
-            <button className="btn btn-primary" type="submit">
+            <button className="btn btn-success" type="submit">
               Register
             </button>
           </div>
