@@ -10,7 +10,11 @@ const PrivateRoute = () => {
   useEffect(() => {
     const authCheck = async () => {
       try {
-        const res = await axios.get("api/v1/auth/user-auth");
+        const res = await axios.get("/api/v1/auth/user-auth", {
+          headers: {
+            Authorization: auth.token, // Pass the token explicitly
+          },
+        });
         if (res.data.ok) {
           setOk(true);
         } else {
@@ -21,8 +25,8 @@ const PrivateRoute = () => {
         setOk(false);
       }
     };
-    if (auth?.token) authCheck();
-  }, [auth?.token]);
+    if (auth.token) authCheck();
+  }, []);
   return ok ? <Outlet /> : <Spinner path="" />;
 };
 
