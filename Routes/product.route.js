@@ -5,6 +5,7 @@ import {
   getOneProductController,
   removeOneProductController,
   getPhotoProductController,
+  updateProduct,
 } from "../Controllers/product.controller.js";
 import { isAdmin, requireSignIn } from "../Middlewares/auth.middleware.js";
 import express from "express";
@@ -16,6 +17,13 @@ prodRoute.post(
   isAdmin,
   ExpressFormidable(),
   createProduct
+);
+prodRoute.put(
+  "/update_product/:pid",
+  requireSignIn,
+  isAdmin,
+  ExpressFormidable(),
+  updateProduct
 );
 prodRoute.get("/get_products", getProductController);
 prodRoute.get("/get_product/:slug", getOneProductController);

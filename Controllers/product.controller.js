@@ -62,7 +62,7 @@ export const getProductController = async (req, res) => {
   try {
     const products = await productModel
       .find({})
-      .select("-photo")
+      .select("-photo") // deselecting photo here - minus
       .limit(12)
       .sort({ createdAt: -1 });
     res.status(500).send({
@@ -134,6 +134,40 @@ export const getPhotoProductController = async (req, res) => {
     res.status(500).send({
       success: false,
       message: "error in photo product controller",
+      err,
+    });
+  }
+};
+
+export const updateProduct = async (req, res) => {
+  try {
+    const { name, description, price, category, quantity, shipping } =
+      req.fields;
+    const { photo } = req.files;
+    const { pid } = req.params;
+    const product = await productModel.findByIdAndUpdate(
+      pid,
+      {
+        ...req.fields,
+        slug: slugify(name),
+      },
+      { new: true }
+    );
+    if (photo) {
+      product.photo.data = fs.readFileSync(photo.path);
+      product.photo.contentType = photo.type;
+    }
+    await product.save();
+    res.status(200).send({
+      success: true,
+      message: " product updated successfully",
+      product,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({
+      success: false,
+      message: "error in update product controller",
       err,
     });
   }
