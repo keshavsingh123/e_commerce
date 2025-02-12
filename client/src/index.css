@@ -142,7 +142,10 @@
     color: #000;
 }
 
-
+.product-link {
+    text-decoration: none !important;
+    color: #000 !important;
+}
 
 /* font-family: "Poppins", serif; */
 /* font-family: "Playfair Display", serif; */

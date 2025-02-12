@@ -24,7 +24,7 @@ export const createProduct = async (req, res) => {
         res
           .status(500)
           .send({ success: false, message: "quantity is required" });
-      case !name:
+      case !shipping:
         res
           .status(500)
           .send({ success: false, message: "shipping is required" });
@@ -60,16 +60,16 @@ export const createProduct = async (req, res) => {
 
 export const getProductController = async (req, res) => {
   try {
-    const products = await productModel
+    const allProducts = await productModel
       .find({})
       .select("-photo") // deselecting photo here - minus
       .limit(12)
       .sort({ createdAt: -1 });
-    res.status(500).send({
+    res.status(200).send({
       success: true,
-      total: products.length,
+      total: allProducts.length,
       message: "All product found",
-      app_products: products,
+      allProducts,
     });
   } catch (err) {
     console.log(err);
@@ -85,7 +85,7 @@ export const getOneProductController = async (req, res) => {
     const product = await productModel.findOne({ slug: req.params.slug });
     res.status(200).send({
       success: true,
-      message: "Produt Found Successfully",
+      message: "Product Found Successfully",
       product,
     });
   } catch (err) {
@@ -101,11 +101,11 @@ export const getOneProductController = async (req, res) => {
 export const removeOneProductController = async (req, res) => {
   try {
     const { pid } = req.params;
-    const product = await productModel.findByIdAndDelete(pid);
+    console.log("Product ID:", pid);
+    await productModel.findByIdAndDelete(pid);
     res.status(200).send({
       success: true,
       message: "Produt Removed Successfully",
-      product,
     });
   } catch (err) {
     console.log(err);
@@ -126,7 +126,7 @@ export const getPhotoProductController = async (req, res) => {
       res.status(200).send({
         success: true,
         message: "Produt photo got Successfully",
-        product,
+        productPhoto: product,
       });
     }
   } catch (err) {
@@ -169,6 +169,64 @@ export const updateProduct = async (req, res) => {
       success: false,
       message: "error in update product controller",
       err,
+    });
+  }
+};
+
+export const filterProduct = async (req, res) => {
+  try {
+    const { radio, checked } = req.body;
+    let args = {};
+    if (checked.length > 0) args.category = { $in: checked }; // Filters products that match any selected category;
+    if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
+    const products = await productModel.find(args);
+    res.status(201).send({
+      success: true,
+      message: "filtered succesfully",
+      products,
+    });
+  } catch (err) {
+    res.status(401).send({
+      success: false,
+      message: "something went wrong in filter",
+    });
+  }
+};
+
+export const productCount = async (req, res) => {
+  try {
+    const total = await productModel.find({}).estimatedDocumentCount();
+    res.status(201).send({
+      success: true,
+      total,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(401).send({
+      success: false,
+      message: "something went wrong in count",
+    });
+  }
+};
+export const productListPage = async (req, res) => {
+  try {
+    const perPage = 4;
+    const page = req.params.page ? parseInt(req.params.page, 4) : 1;
+    const products = await productModel
+      .find({})
+      .select("-photo")
+      .skip((page - 1) * perPage)
+      .limit(perPage)
+      .sort({ createdAt: -1 });
+    res.status(201).send({
+      success: true,
+      products,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(401).send({
+      success: false,
+      message: "something went wrong in listPage",
     });
   }
 };

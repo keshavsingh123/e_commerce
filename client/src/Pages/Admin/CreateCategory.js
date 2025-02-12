@@ -144,7 +144,7 @@ const CreateCategory = () => {
                         </button>
                         <button
                           className="btn btn-danger ms-2"
-                          onClick={() => handleDelete(c.id)}
+                          onClick={() => handleDelete(c._id)}
                         >
                           Delete
                         </button>

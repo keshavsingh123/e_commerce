@@ -6,6 +6,9 @@ import {
   removeOneProductController,
   getPhotoProductController,
   updateProduct,
+  filterProduct,
+  productCount,
+  productListPage,
 } from "../Controllers/product.controller.js";
 import { isAdmin, requireSignIn } from "../Middlewares/auth.middleware.js";
 import express from "express";
@@ -30,5 +33,8 @@ prodRoute.get("/get_product/:slug", getOneProductController);
 prodRoute.get("/get_product_photo/:pid", getPhotoProductController);
 
 prodRoute.delete("/delete_product/:pid", removeOneProductController);
+prodRoute.post("/filter_products", filterProduct);
+prodRoute.get("/count_products", productCount);
+prodRoute.get("/product_list/:page", productListPage);
 
 export default prodRoute;

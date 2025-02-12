@@ -69,8 +69,8 @@ export const allCatController = async (req, res) => {
 };
 export const deleteController = async (req, res) => {
   try {
-    const { pid } = req.params;
-    await catModel.findByIdAndDelete(pid);
+    const { id } = req.params;
+    await catModel.findByIdAndDelete(id);
     res.status(200).send({
       success: true,
       message: "deleted successfully",
